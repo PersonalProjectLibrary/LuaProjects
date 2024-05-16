@@ -1,0 +1,11 @@
+个人项目工程：
+VS 2022
+Unity2020.3.48f1c1
+XLua ：xLua-2.1.16_ndkr21b_with_win
+
+原课程：
+siki学院：xLua游戏中的热更新(基于Unity2017)
+课程内容：xlua与UnityC#交互语法课 23节视频
+
+
+	
