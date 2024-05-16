@@ -1,0 +1,23 @@
+a = 100
+str = "siki"
+b = 25.66
+isDie = false
+
+person = {
+	name = "siki",
+	age = "18",
+	12,6,"siki",6.1,6,7,
+	eat = function()
+		print("我要吃饭")
+	end,
+	work = function(arg,a,b)
+		print(a+b)
+	end
+}
+
+function eat2()
+	print("我正在吃饭")
+end
+function person:work2(a,b)
+	print(a+b);
+end

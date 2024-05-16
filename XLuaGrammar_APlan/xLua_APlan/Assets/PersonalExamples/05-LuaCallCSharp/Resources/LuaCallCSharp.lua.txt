@@ -1,0 +1,127 @@
+
+--该脚本再C#脚本里被获取后，执行该脚本时，就可以执行该脚本里调用C#方法进行的操作，如下面的调用C#创建游戏物体
+
+--[[
+	Lua里调用C#，创建物体，没有new方法，直接使用：		CS.命名空间.方法()		如创建游戏物体：CS.UnityEngine.GameObject()
+
+	所有C#相关的都放在CS下，包括构造函数、静态成员属性、方法
+	如果有多个构造函数，调用其中一个构造函数，直接传递参数即可
+	如 :
+		local object1 = CS.UnityEngine.GameObject()
+		local object2 = CS.UnityEngine.GameObject("helloworld")
+]]
+
+--1、构造游戏物体，对应C#中 new对象：
+CS.UnityEngine.GameObject('newByLua')								--Lua调用C#创建游戏物体，并且名称未newByLua
+
+--*******************************分割线**************************************
+
+--[[
+	可直接通过类来访问：
+	访问C#中静态属性、方法，使用：		CS.命名空间.类名.属性/方法			如获取帧时间：CS.UnityEngine.Time.deltaTime
+
+	关于性能小技巧：
+		1、变量如果不是需要全局访问，建议使用局部变量 变量名前加 local
+		2、访问CS.UnityEngine 都比较耗费性能，花时间去查找获取，
+			如多次经常使用，可先用局部对象引用后访问；
+			除了减少敲代码时间，还可以节约性能。
+		如：
+			local object  =CS.UnityEngine.GameObject					--先访问用局部变量object 访问CS.UnityEngine.GameObject
+			light = object.Find("Diction Light")						--后续object引用，这样比较节约性能
+
+]]
+
+--2、访问、设置、修改 C#中静态属性、方法
+print(CS.UnityEngine.Time.deltaTime);								--输出 每帧时长
+
+CS.UnityEngine.Time.timeScale = 0.5									--设置时间快慢的值，注：lua里都是number类型，故不需要加 f，即不用写成 0.5f
+
+local object = CS.UnityEngine.GameObject							--获取物体
+local cam = object.Find("Main Camera")								--查找并获取 游戏场景里的Main Camera
+local light  =object.Find("Diction Light")
+cam.name = "cam_updateByLua"										--修改物体
+
+--*******************************分割线**************************************
+
+--[[
+	3、访问C#中成员属性和方法：
+	先获取到某个对象，该对象可能是某个具体游戏组件、游戏物体，然后访问对象里的某些属性、方法
+
+	静态方法根据某个类来调用，					调用静态方法无所谓 点还是冒号引用，
+	成员方法，根据某个对象来调用；				调用成员变量时，注意要使用冒号调用，确保是物体自身执行某操作
+
+	使用冒号，会自动把调用对象作为参数传递进去：	local camCom = cam:GetComponent("Camera")
+	使用点，需要手动把自身传入：					local camCom = cam.GetComponent(cam,"Camera")		
+
+]]
+
+--注意 Unity面板上属性名是Audio Listener ，这里找组件时，中间没空格，是AudioListener，同理Cam身上的field Of View字段值的获取省略空格
+local camCom1 = cam:GetComponent("AudioListener")								--使用冒号 获取cam身上的Audio Listener组件
+local camCom2 = cam.GetComponent(cam,"Camera")									--使用点 获取cam身上的Camera组件
+
+print(camCom2.fieldOfView)
+object.Destroy(camCom1)
+object.Destroy(camCom2)
+
+--*******************************分割线**************************************
+--[[
+	Lua访问C# 其他注意事项
+
+	4、父类属性、方法
+		xlua支持通过派生类 访问基类的静态属性，静态方法，
+		通过派生类实例 访问基类的成员属性，成员方法
+
+	5、参数的输入输出：out, ref
+		C#的普通参数算一个输入形参；ref修饰的参数算一个输入形参；out算输出形参
+		对于Lua 只有输出参数，输出参数，
+		Lua支持多返回值多输出值，多输出和输入参数中多出来的参数，依顺序对应C#的out/ref参数
+
+	6、xlua支持参数的重载
+		直接通过不太的参数类型进行重载函数的访问，不过Lua类型不够丰富，也只是一定程度上的支持重载；
+
+	7、操作符
+		支持：+，-，*，/，==，一元，<，<=，%，[]
+
+	8、多参数带默认值
+		和C#调用有默认值一样，若所给实参少于形参，会用默认值补上；
+
+	9、可变参方法
+		C#： void VariableParamsFunc（int a，params string[] strs）
+		Lua：test:VariableParamsFunc（5，true，‘hello’）
+
+	10、扩展方法
+		C#里定义了扩展方法，Lua里就能直接使用
+
+	11、泛型/模板方法
+		不直接支持，可以同各国扩展方法进行封装后调用
+
+	12、枚举类型
+		枚举值，就像枚举类型下的静态属性一样。
+		CS.命名空间.类名.枚举类型.枚举值
+		另外把枚举类加入到生成代码，支持__CastFrom方法，实现数字和字符到枚举值的转换
+
+	13、委托delegate，事件event
+		C#的委托调用，和普通lua函数调用一样：+、-操作符增加、减少函数调用链。
+		delegate属性可以用一个luafunction来赋值
+
+		C#事件：public event Action TestEvent；	
+		TestEvent+=事件1 
+		TestEvent-=事件2
+		Lua增加减少事件回调：
+		testobj:TestEvent('+',lua_event_callback)
+		testobj:TestEvent('-',lua_event_callback)
+
+	14、C#复杂类型与table的自动转换
+		对于一个有无参数构造函数的C#复杂类型，在lua侧可直接用table来替代；
+		table对应复杂类型的public字段，在C#中有相应的字段对应即可，支持函数参数传递，属性赋值等
+
+	15、获取类型（相当于C#的typeof）
+		比如要获取UnityEngine.ParticleSystem类的Type信息，
+		lua：typeof(CS.UnityEngine.ParticleSystem)
+
+		关于类型的 “强”转
+			lua没有类型，也就没有类型的强转。
+			但引用C#时，涉及不同类型转换，需要进行处理；引用第三方的一些插件、库，其中一些接口或抽象类，其实现类是隐藏的；
+			则无法对其进行代码生成。这时会被xlua识别为未生成代码，用反射来访问。
+			但用反射访问会比较影响性能，我们可以把这接口或抽象类加到生成代码，然后指定用生成代码来访问。
+]]
