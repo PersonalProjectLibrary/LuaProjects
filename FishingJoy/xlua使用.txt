@@ -12,3 +12,21 @@ Unity工程里，File-Build Setting->Player Settings->Player->Other Settings->Sc
 列表新增，输入HOTFIX_ENABLE，按Apply/Enter键确认保存；
 这里出现了个对话框，选择了：确定是这些文件，其他文件可能后续再发现；
 编译完成后，可以看到Unity菜单栏：Xlua，下拉框多了Hotfix Inject In Editor选项；
+
+四、常见报错处理
+1、xlua.access, no field __Hotfix0_Update stack traceback：...
+忘记执行：
+（1）菜单栏：Xlua-Generate Code；
+项目中任何地方有更改，C#有修改，都需要执行该步骤重新生成代码；
+（2）菜单栏：Xlua-Hotfix Inject in Editor;
+代码生成后，需要把xlua代码注入到编辑器中；
+注：打包后不需要执行，但开发补丁过程中需要执行
+
+2、点击Hotfix Inject in Editor，代码注入时，报please install the Tools
+将xlua文件夹里，Asset同级目录下的Tools复制到项目工程里；
+注：保持文件夹层级一致，
+Tools在Xlua里是放到Asset的同级文件夹下的，
+所以项目里，也把Tools复制到项目的Asset所在的同级文件夹里；
+
+
+
