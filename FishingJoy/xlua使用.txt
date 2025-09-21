@@ -1,0 +1,8 @@
+
+githus上xlua地址：https://github.com/Tencent/xLua
+
+xlua导入到工程方法：
+1-本地拉取xlua工程/下载xlua压缩包；
+2-将xlua文件夹里，Asset文件夹里文件：Plugins，XLua，Plugins.mate，XLua.mate，
+复制到工程的Asset文件夹里；
+本项目，即把该4个文件复制到：FishingJoyAsset文件夹里，和MyRessources、Scene等文件位于同一层级
