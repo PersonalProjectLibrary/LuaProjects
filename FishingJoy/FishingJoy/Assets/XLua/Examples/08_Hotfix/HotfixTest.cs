@@ -15,7 +15,7 @@ namespace XLuaTest
         {
         }
 
-        // Update is called once per frame
+        [Hotfix]
         void Update()
         {
             if (++tick % 50 == 0)
@@ -30,10 +30,15 @@ namespace XLuaTest
             {
                 luaenv.DoString(@"
                 xlua.hotfix(CS.XLuaTest.HotfixTest, 'Update', function(self)
+                    --[[原功能逻辑：
                     self.tick = self.tick + 1
                     if (self.tick % 50) == 0 then
                         print('<<<<<<<<Update in lua, tick = ' .. self.tick)
                     end
+                    ]]--
+                    --新功能逻辑：获取该相机，输入相机名称
+                    local a = CS.UnityEngine.GameObject.Find('Main Camera')
+                    CS.UnityEngine.Debug.Log(a.name)
                 end)
             ");
             }

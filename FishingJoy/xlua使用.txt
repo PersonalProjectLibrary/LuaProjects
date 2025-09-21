@@ -41,6 +41,9 @@ Unity.Cecil.dll，Unity.Cecil.Mdb.dll，Unity.Cecil.Pdb.dll，
 项目文件夹->Assets->Xlua->Src->Editor文件夹里
 注：项目所在目录路径不要有中文，不然可能会因路径名不识别导致异常报错；
 
-
-
-
+五、简单lua使用
+使用Xlua的Example里的08_Hotfix，HotfixTest场景、脚本进行尝试练习：
+执行热更后，原输出：print('<<<<<<<<Update in lua, tick = ' .. self.tick)
+改成获取场景里相机，并输出相机名的功能逻辑；
+注：这里热更Update方法，Update方法上加上[Hotfix]标签
+代码修改更新后，生成代码，代码注入，运行可看到修改后的功能效果；
