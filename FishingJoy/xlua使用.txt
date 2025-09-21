@@ -1,8 +1,14 @@
 
-githus上xlua地址：https://github.com/Tencent/xLua
+一、githus上xlua地址：https://github.com/Tencent/xLua
 
-xlua导入到工程方法：
+二、xlua导入到工程方法：
 1-本地拉取xlua工程/下载xlua压缩包；
 2-将xlua文件夹里，Asset文件夹里文件：Plugins，XLua，Plugins.mate，XLua.mate，
 复制到工程的Asset文件夹里；
 本项目，即把该4个文件复制到：FishingJoyAsset文件夹里，和MyRessources、Scene等文件位于同一层级
+
+三、开启使用xlua的宏
+Unity工程里，File-Build Setting->Player Settings->Player->Other Settings->Scripting Define Symbols，
+列表新增，输入HOTFIX_ENABLE，按Apply/Enter键确认保存；
+这里出现了个对话框，选择了：确定是这些文件，其他文件可能后续再发现；
+编译完成后，可以看到Unity菜单栏：Xlua，下拉框多了Hotfix Inject In Editor选项；
