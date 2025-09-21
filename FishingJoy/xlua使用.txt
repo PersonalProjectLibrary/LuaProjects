@@ -28,5 +28,19 @@ Unity工程里，File-Build Setting->Player Settings->Player->Other Settings->Sc
 Tools在Xlua里是放到Asset的同级文件夹下的，
 所以项目里，也把Tools复制到项目的Asset所在的同级文件夹里；
 
+3、代码注入时，可能出现：
+The runtime version supported by this application is unavaliable.
+using default runtiome: v4.0.30319
+这种警告可以选择忽视，重新点击Hotfix Inject in Editor，代码注入；
+如果还注入失败，报这个警告，将三个dll配置文件导入到项目中；（不报警告也可以导）
+（1）配置文件所在位置：
+Unity安装目录下->Editor->Data->Managed：
+（2）目标配置dll：
+Unity.Cecil.dll，Unity.Cecil.Mdb.dll，Unity.Cecil.Pdb.dll，
+（3）复制到的目标位置：
+项目文件夹->Assets->Xlua->Src->Editor文件夹里
+注：项目所在目录路径不要有中文，不然可能会因路径名不识别导致异常报错；
+
+
 
 
