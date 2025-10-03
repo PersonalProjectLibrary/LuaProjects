@@ -1,0 +1,32 @@
+﻿
+#region 脚本功能、创建时间和文件作者
+/**************************************
+    文件：#ROOTNAMESPACEBEGIN#_#SCRIPTNAME#.cs
+    作者：LoriaRujoy
+    邮箱：2659635618@qq.com
+    时间：#CreateTime#
+    功能：Nothing
+***************************************/
+#endregion
+
+using System;
+using System.IO;
+using UnityEngine;
+using System.Collections.Generic;
+
+#ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        #NOTRIM#
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        #NOTRIM#
+    }
+}
+#ROOTNAMESPACEEND#

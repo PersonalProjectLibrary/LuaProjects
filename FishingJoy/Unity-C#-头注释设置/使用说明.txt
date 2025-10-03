@@ -1,0 +1,21 @@
+使用说明：
+下列路径，根据自己Unity的安装路径替换；
+
+我这里是把Unity安装到D盘Unity文件夹里；
+
+脚本头部注释可自行修改Script-NewBehaviourScript.cs.txt，来实现自定义需求；
+
+脚本注释里这里设置了创建时间和创建者以及联系方式，这些可自行编辑修改；
+
+
+一、Unity脚本添加头部注释
+
+1、替换81-C# Script-NewBehaviourScript.cs.txt文件：
+
+Unity安装目录\Editor\Data\Resources\ScriptTemplates\81-C# Script-NewBehaviourScript.cs.txt
+
+2、添加编辑器插件脚本ScriptsInfoRecoder.cs：
+
+Unity项目Assets文件夹里，Asset/Plugins/Editor文件夹（没有的话Asset文件夹下新建Plugins/Editor文件夹），
+
+将ScriptsInfoRecoder.cs文件放入，项目新建脚本会用到；
