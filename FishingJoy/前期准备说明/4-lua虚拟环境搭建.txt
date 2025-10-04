@@ -1,0 +1,12 @@
+
+1-Scripts文件夹下新建HotFixScript脚本
+
+2-Asset同级目录下新建lua测试脚本：Fish.lua.txt
+Fish.lua.txt记得格式保存设置为UTF-8格式；
+
+3-HotFixScript脚本里，设置lua虚拟环境搭建
+并将脚本挂载到场景里
+
+4-菜单栏XLua-生成注入
+
+5-运行游戏，可看到控制台Lua脚本执行输出

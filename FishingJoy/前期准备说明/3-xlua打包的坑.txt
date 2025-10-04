@@ -1,0 +1,10 @@
+
+项目发布打包时，要把Xlua文件夹里的Example删了；否则会打包失败报错；
+
+Example文件夹删了后，会报错，菜单栏Xlua，点击Clear Generate Code清除之前生成的代码即可；
+
+因为修改了内容（删去了Xlua的示例），记得重新执行 生成代码Generate Code和代码注入Hotfix Inject in Editor，
+
+然后就可以正常打包发布了；
+
+注：删除Example文件时，记得工程所在场景切换到非Example文件夹里的示例场景，不然不完全删除示例文件

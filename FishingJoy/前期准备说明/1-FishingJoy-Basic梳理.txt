@@ -1,0 +1,59 @@
+Scripts：
+              1、Effect：		Explosion、Pao、Shake、Shine、ShineHide、Water；
+              2、Enemy：	Boss、DeffendBoss、InvisibleBoss、CreateFish、Fish、Qipao；
+              3、Item：		Card、FishNet、Gold、Missile、Shell；
+              4、Player：	Bullect、Gun、GunChange；
+                   Player/PlayerUI：	GunImage、GameSkill、Fire、Ice、ButterFly；
+                   Player/UI：	StartGame、ReturnMain、LoadGame、Ground、CreatePao、Treasour、Mylight、Star；
+
+Prefabs：
+              1、Effects：		explosion1、2、3，DeadEffect1、2，star3、A、B，Pao；
+              2、Enemy：		Boss1、2、3，level3fish2、3，level2fish1、2、3，Fish1、2、3，Qipao；
+              3、Item：			Shell，Card，Missile1、2，Net，Glod、Diamands；
+              4、Player：		Bullect1、2、3；
+              5、UI：
+                          			MoveUI：CreatePao，Pao，ImageGold，ImageDiamands，GoldImage；
+                          			PlayerUI：Img_Gun，UI_ReturnMenu，UISkills，UI_Treasour，UI_LeftTable，UI_RightTable；
+
+一、Main Scene
+StartGame： 			Scripts/Player/UI
+ShineHide：  			Scripts/Effect
+Shine：         			Scripts/Effect
+CreatePao：  			Scripts/Player/UI		Prefabs/UI/MoveUI/CreatePao
+Pao：            			Scripts/Effect		Prefabs/UI/MoveUI/Pao，Prefabs/Effects/Pao
+
+二、Loading Scene
+LoadGame：			Scripts/Player/UI
+
+三、Fish Secene
+1、Shake：			Scripts/Effect
+8、CreateFish：			Scripts/Enemy
+2、Ground：			Scripts/Player/UI
+3、GunChange：			Scripts/Player 		Prefabs/UI/PlayerUI/UI_LeftTable、UI_RightTable
+4、ReturnMain：			Scripts/Player/UI 		Prefabs/UI/PlayerUI/UI_ReturnMenu
+5、GameSkill、Fire、Ice、ButterFly：	Scripts/Player/PlayerUI 	Prefabs/UI/PlayerUI/UISkills
+6、
+Fish：				Scripts/Enemy		Prefabs/Enemy/Fish1、2、3
+Water：				Scripts/Effect		Prefabs/Enemy/level2fish1、2、3，level3fish2、3
+7、
+Boss：				Scripts/Enemy		Prefabs/Enemy/Boss2
+DeffendBoss：			Scripts/Enemy		Prefabs/Enemy/Boss1
+InvisibleBoss：			Scripts/Enemy		Prefabs/Enemy/Boss3
+8、
+Shell：				Scripts/Item		Prefabs/Item/Shell
+Card：				Scripts/Item		Prefabs/Item/Card
+Missile：				Scripts/Item		Prefabs/Item/Missile1、2
+Qipao：				Scripts/Enemy		Prefabs/Enmey/QiPao
+9、
+Gun：				Scripts/Player 
+FishNet：				Scripts/Item		Prefabs/Item/Net
+Bullect：				Scripts/Player		Prefabs/Player/Bullect1、2、3
+Explosion：			Scripts/Effect		Prefabs/Effects/explosion1、2、3，DeadEffect1、2
+GunImage：			Scripts/Player/PlayerUI	Prefabs/UI/PlayerUI/Img_Gun
+10、
+Mylight：  			Scripts/Player/UI
+Star：     	 			Scripts/Player/UI		Prefabs/Effects/star3、A、B
+Treasour： 			Scripts/Player/UI		Prefabs/UI/PlayerUI/UI_Treasour
+Gold：       			Scripts/Item		Prefabs/UI/MoveUI/ImageGold、ImageDiamands，Prefabs/Item/Glod、Diamands
+
+
