@@ -30,7 +30,7 @@ public class HotFixScript : MonoBehaviour
 
     private byte[] MyLoader(ref string luaFilePath)
     {
-        string localFile = filePath + luaFilePath + ".lua.txt";
+        string localFile = filePath + luaFilePath + ".lua";
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(localFile));
     }
 
