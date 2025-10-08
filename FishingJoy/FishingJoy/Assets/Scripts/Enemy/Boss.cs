@@ -133,8 +133,8 @@ public class Boss : MonoBehaviour
         if (hp <= 0)
         {
             Instantiate(deadEeffect, transform.position, transform.rotation);
-            Gun.Instance.CurrencyChange("Gold", GetGold * 10);
-            Gun.Instance.CurrencyChange("Diamand", GetDiamands * 10);
+            Gun.Instance.CurrencyChange(CurrencyType.Gold, GetGold * 10);
+            Gun.Instance.CurrencyChange(CurrencyType.Diamond, GetDiamands * 10);
             //穿插着生成一圈金币和钻石：18 + 36 * (i - 1)，36 + 36 * (i - 1)
             for (int i = 0; i < 11; i++)
             {
@@ -175,9 +175,9 @@ public class Boss : MonoBehaviour
             //boss和玩家距离小于4时，攻击成功
             if (Vector3.Distance(transform.position, playerTransform.position) <= 4)
             {
-                if (reduceGold != 0) Gun.Instance.CurrencyChange("Gold", reduceGold);
+                if (reduceGold != 0) Gun.Instance.CurrencyChange(CurrencyType.Gold, reduceGold);
 
-                if (reduceDiamond != 0) Gun.Instance.CurrencyChange("Diamand", reduceDiamond);
+                if (reduceDiamond != 0) Gun.Instance.CurrencyChange(CurrencyType.Diamond, reduceDiamond);
 
                 gameObjectAni.SetBool("isAttack", false);//切回idle状态
                 isAttack = false;

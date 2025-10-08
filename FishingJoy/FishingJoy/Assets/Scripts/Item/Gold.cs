@@ -5,30 +5,7 @@
 /// </summary>
 public class Gold : MonoBehaviour
 {
-    /// <summary>
-    /// 物品类型
-    /// </summary>
-    public enum PlaceType
-    {
-        /// <summary>
-        /// 捕鱼开出来的金币，要去的地方
-        /// </summary>
-        gold,
-        /// <summary>
-        /// 捕鱼开出来的钻石，要去的地方
-        /// </summary>
-        diamands,
-        /// <summary>
-        /// 宝箱开出来的金币，要去的地方
-        /// </summary>
-        imageGold,
-        /// <summary>
-        /// 宝箱开出来的钻石，要去的地方
-        /// </summary>
-        imageDiamands
-    }
-    public PlaceType thePlaceTo;
-
+    public CurrencyPlaceType placeType;
     private Transform playerTransform;
     public float moveSpeed = 3;
     public GameObject star2;
@@ -57,21 +34,21 @@ public class Gold : MonoBehaviour
     /// </summary>
     private void InitPlaceAndAudio()
     {
-        switch (thePlaceTo)
+        switch (placeType)
         {
-            case PlaceType.gold:
+            case CurrencyPlaceType.Gold:
                 playerTransform = Gun.Instance.goldPlace;
                 audios.clip = goldAudio;
                 break;
-            case PlaceType.diamands:
+            case CurrencyPlaceType.Diamand:
                 playerTransform = Gun.Instance.diamondsPlace;
                 audios.clip = diamandsAudio;
                 break;
-            case PlaceType.imageGold:
+            case CurrencyPlaceType.GoldImg:
                 playerTransform = Gun.Instance.imageGoldPlace;
                 audios.clip = goldAudio;
                 break;
-            case PlaceType.imageDiamands:
+            case CurrencyPlaceType.DiamandImg:
                 playerTransform = Gun.Instance.imageDiamandsPlace;
                 audios.clip = diamandsAudio;
                 break;
@@ -96,7 +73,7 @@ public class Gold : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, playerTransform.position, 1 / Vector3.Distance(transform.position, playerTransform.position) * Time.deltaTime * moveSpeed);
 
-        if (thePlaceTo == PlaceType.imageDiamands || thePlaceTo == PlaceType.imageGold)
+        if (placeType == CurrencyPlaceType.DiamandImg || placeType == CurrencyPlaceType.GoldImg)
         {
             if (Vector3.Distance(transform.position, playerTransform.position) <= 2) Destroy(gameObject);
 

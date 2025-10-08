@@ -11,8 +11,8 @@ public class ButterFly : GameSkill
     {
         if (canUse)
         {
-            if (Gun.Instance.diamands <= reduceDiamands) return;
-            Gun.Instance.CurrencyChange("Diamand", -reduceDiamands);
+            if (Gun.Instance.Diamond <= reduceDiamands) return;
+            Gun.Instance.CurrencyChange(CurrencyType.Diamond, -reduceDiamands);
 
             Gun.Instance.Butterfly = true;
             canUse = false;

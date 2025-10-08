@@ -52,8 +52,8 @@ public class GunChange : MonoBehaviour
     {
         if (Gun.Instance.canChangeGun)
         {
-            if (add) Gun.Instance.SwitchGun("Up");
-            else Gun.Instance.SwitchGun("Down");
+            if (add) Gun.Instance.SwitchGun(SwitchGunType.Up);
+            else Gun.Instance.SwitchGun(SwitchGunType.Down);
         }
     }
 

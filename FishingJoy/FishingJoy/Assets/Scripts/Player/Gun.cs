@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using XLua;
 
 /// <summary>
 /// 枪
 /// </summary>
+[Hotfix]
 public class Gun : MonoBehaviour
 {
     [Header("枪：")]
@@ -12,15 +14,13 @@ public class Gun : MonoBehaviour
     public float attackCD = 1;
     private float GunCD = 4;
     private float rotateSpeed = 5f;
-    public GameObject[] Bullects;//3种枪
+    public GameObject[] Bullets;//3种枪
     public GunChange[] gunChange;//升级/降级枪的等级
-    public AudioClip[] bullectAudios;//射击时的音乐
-    private AudioSource bullectAudio;
+    public AudioClip[] bulletAudios;//射击时的音乐
+    private AudioSource bulletAudio;
 
     [Header("其他对象：")]
     public GameObject net;//渔网
-    public int gold = 100;//初始金币1000
-    public int diamands = 50;//初始钻石1000
     public Text goldText;//金币显示文本
     public Text diamandsText;//钻石显示文本
     public Transform attackPos;//攻击位置
@@ -28,6 +28,18 @@ public class Gun : MonoBehaviour
     public Transform diamondsPlace;//捕鱼生成的钻石移动位置
     public Transform imageGoldPlace;//宝箱生成的金币移动位置
     public Transform imageDiamandsPlace;//宝箱生成的钻石移动位置
+    private int gold;
+    public int Gold
+    {
+        get { return gold; }
+        set { gold = value; }
+    }
+    private int diamond;
+    public int Diamond
+    {
+        get { return diamond; }
+        set { diamond = value; }
+    }
 
     [Header("开关：")]
     public bool attack = false;
@@ -79,16 +91,16 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        gold = 1000;
-        diamands = 1000;
+        gold = 20;
+        diamond = 30;
         level = 2;
-        bullectAudio = GetComponent<AudioSource>();
+        bulletAudio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         goldText.text = gold.ToString();
-        diamandsText.text = diamands.ToString();
+        diamandsText.text = diamond.ToString();
 
         RotateGun();
         MonitorGunState();
@@ -149,11 +161,11 @@ public class Gun : MonoBehaviour
     /// <summary>
     /// 切枪：Up 升级枪，Down：降级枪
     /// </summary>
-    /// <param name="change"></param>
-    public void SwitchGun(string change)
+    /// <param name="type"></param>
+    public void SwitchGun(SwitchGunType type)
     {
-        if (change == "Up") gunLevel += 1;
-        else if (change == "Down") gunLevel -= 1;
+        if (type == SwitchGunType.Up) gunLevel += 1;
+        else if (type == SwitchGunType.Down) gunLevel -= 1;
 
         if (gunLevel == 4) gunLevel = 1;
         else if (gunLevel == 0) gunLevel = 3;
@@ -166,24 +178,25 @@ public class Gun : MonoBehaviour
     /// <summary>
     /// 进行捕鱼
     /// </summary>
+    [LuaCallCSharp]
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            bullectAudio.clip = bullectAudios[gunLevel - 1];
-            bullectAudio.Play();
+            bulletAudio.clip = bulletAudios[gunLevel - 1];
+            bulletAudio.Play();
 
             if (Butterfly)
             {
-                Instantiate(Bullects[gunLevel - 1], attackPos.position, attackPos.rotation * Quaternion.Euler(0, 0, 20));
-                Instantiate(Bullects[gunLevel - 1], attackPos.position, attackPos.rotation * Quaternion.Euler(0, 0, -20));
+                Instantiate(Bullets[gunLevel - 1], attackPos.position, attackPos.rotation * Quaternion.Euler(0, 0, 20));
+                Instantiate(Bullets[gunLevel - 1], attackPos.position, attackPos.rotation * Quaternion.Euler(0, 0, -20));
             }
 
-            Instantiate(Bullects[gunLevel - 1], attackPos.position, attackPos.rotation);
+            Instantiate(Bullets[gunLevel - 1], attackPos.position, attackPos.rotation);
 
             if (!canShootForFree)
             {
-                CurrencyChange("Gold", -1 - (gunLevel - 1) * 2);
+                CurrencyChange(CurrencyType.Gold, -1 - (gunLevel - 1) * 2);
                 /*Debug.Log("花钱射击");*/
             }
             /* else { Debug.Log("免费射击"); }*/
@@ -197,18 +210,20 @@ public class Gun : MonoBehaviour
     /// <summary>
     /// 允许boss攻击枪架
     /// </summary>
-    public void BossAttack() { bossAttack = true; }
-    /// <summary>
-    /// 货币增减：
-    /// type=="Diamand" 钻石增减
-    /// type=="Gold"    金钱增减
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="num"></param>
-    public void CurrencyChange(string type, int num)
+    public void BossAttack()
     {
-        if (type == "Diamand") diamands += num;
-        else if (type == "Gold")
+        bossAttack = true;
+    }
+
+    /// <summary>
+    /// 货币更新
+    /// </summary>
+    /// <param name="type">货币类型</param>
+    /// <param name="num">增减数量</param>
+    public void CurrencyChange(CurrencyType type, int num)
+    {
+        if (type == CurrencyType.Diamond) diamond += num;
+        else if (type == CurrencyType.Gold)
         {
             if (canGetDoubleGold && num > 0)
             {

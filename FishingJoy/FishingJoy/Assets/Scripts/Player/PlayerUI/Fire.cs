@@ -12,8 +12,8 @@ public class Fire : GameSkill
         {
             if (!Gun.Instance.Ice && !Gun.Instance.Fire)
             {
-                if (Gun.Instance.diamands <= reduceDiamands) return;
-                Gun.Instance.CurrencyChange("Diamand", -reduceDiamands);
+                if (Gun.Instance.Diamond <= reduceDiamands) return;
+                Gun.Instance.CurrencyChange(CurrencyType.Diamond, -reduceDiamands);
                 Gun.Instance.Fire = true;
                 canUse = false;
                 cdSlider.transform.Find("Background").gameObject.SetActive(true);

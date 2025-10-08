@@ -36,7 +36,7 @@ public class Missile : MonoBehaviour
         iceAni = ice.transform.GetComponent<Animator>();
         gameObjectAni = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        Destroy(this.gameObject, 8);
+        Destroy(gameObject, 8);
     }
 
     void Update()
@@ -102,7 +102,7 @@ public class Missile : MonoBehaviour
     /// <param name="attckValue"></param>
     public void Lucky(int attckValue)
     {
-        Gun.Instance.CurrencyChange("Gold", GetGold);
+        Gun.Instance.CurrencyChange(CurrencyType.Gold, GetGold);
         Instantiate(gold, transform.position, transform.rotation);
         if (Gun.Instance.Fire) attckValue *= 2;
         hp -= attckValue;
@@ -119,11 +119,11 @@ public class Missile : MonoBehaviour
     /// </summary>
     private void Prize()
     {
-        Gun.Instance.CurrencyChange("Gold", GetGold * 10);
+        Gun.Instance.CurrencyChange(CurrencyType.Gold, GetGold * 10);
         for (int i = 0; i < 5; i++)
         {
             Instantiate(gold, transform.position + new Vector3(-5f + i, 0, 0), transform.rotation);
         }
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

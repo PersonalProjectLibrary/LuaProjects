@@ -34,6 +34,11 @@ public class HotFixScript : MonoBehaviour
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(localFile));
     }
 
+    private void OnDisable()
+    {
+        luaEnv.DoString("require 'FishDispose'");
+    }
+
     private void OnDestroy()
     {
         //销毁Lua虚拟环境

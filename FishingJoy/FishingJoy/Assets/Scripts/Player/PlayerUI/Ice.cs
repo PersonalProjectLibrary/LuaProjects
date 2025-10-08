@@ -23,10 +23,10 @@ public class Ice : GameSkill
             if (!Gun.Instance.Fire && !Gun.Instance.Ice)
             {
 
-                if (Gun.Instance.diamands <= reduceDiamands) return;
+                if (Gun.Instance.Diamond <= reduceDiamands) return;
                 if (fireAudio.isPlaying) return;
                 fireAudio.Play();
-                Gun.Instance.CurrencyChange("Diamand", -reduceDiamands);
+                Gun.Instance.CurrencyChange(CurrencyType.Diamond, -reduceDiamands);
                 Gun.Instance.Ice = true;
                 canUse = false;
                 cdSlider.transform.Find("Background").gameObject.SetActive(true);

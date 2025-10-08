@@ -152,10 +152,10 @@ public class Fish : MonoBehaviour
     /// </summary>
     private void Prize()
     {
-        Gun.Instance.CurrencyChange("Gold", GetCold);
+        Gun.Instance.CurrencyChange(CurrencyType.Gold, GetCold);
         if (GetDiamands != 0)
         {
-            Gun.Instance.CurrencyChange("Diamand", GetDiamands);
+            Gun.Instance.CurrencyChange(CurrencyType.Diamond, GetDiamands);
             Instantiate(diamands, transform.position, transform.rotation);
         }
 
