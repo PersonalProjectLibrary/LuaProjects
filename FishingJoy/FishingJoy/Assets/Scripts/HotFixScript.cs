@@ -17,6 +17,11 @@ public class HotFixScript : MonoBehaviour
 {
     private LuaEnv luaEnv;
     private string filePath;
+
+    void Awake()
+    { 
+        DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
         luaEnv = new LuaEnv();
